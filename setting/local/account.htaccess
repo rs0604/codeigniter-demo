@@ -1,0 +1,5 @@
+SetEnv account_id account_name
+
+RewriteRule ^pict/(.*) pict/$1 [L]
+RewriteRule ^index.php / [L,R,QSA]
+RewriteRule ^(.*)$ system/$1 [L]

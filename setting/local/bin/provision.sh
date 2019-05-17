@@ -7,13 +7,11 @@ service memcached start
 # Remiインストール
 wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm -O remi-release-7.rpm
 
-
-# サブドメイン用のディレクトリ作成と設定
-#chmod 0705 /home/vagrant
-#mkdir /home/vagrant/accounts
-#chmod 0777 /home/vagrant/accounts
-#chown vagrant:vagrant /home/vagrant/accounts
-#cp -af /vagrant/setting/local/001_codeigniter_demo.conf /etc/httpd/conf.d/001_codeigniter_demo.conf
+sed -i -e 's%DocumentRoot "/var/www/html"%DocumentRoot "/vagrant/public_html"%g' /etc/httpd/conf/httpd.conf
+sed -i -e 's%AllowOverride None%AllowOverride All%g' /etc/httpd/conf/httpd.conf
+sed -i -e 's%<Directory "/var/www">%<Directory "/vagrant/public_html">%g' /etc/httpd/conf/httpd.conf
+echo -e "SetEnv CI_ENV development" > /etc/httpd/conf.d/env.conf
+cp -af /vagrant/setting/local/001_codeigniter_demo.conf /etc/httpd/conf.d/001_codeigniter_demo.conf
 
 # 諸々インストール
 yum -y install epel-release
